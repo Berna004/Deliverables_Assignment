@@ -10,40 +10,69 @@ package ca.sheridancollege.project;
  *
  * @author dancye
  * @author Paul Bonenfant Jan 2020
+ * @author Bernardo Coelho July 2023
  */
-public abstract class Player {
+public class Player {
 
-    private String name; //the unique name for this player
+    private String name;
+    private Hand hand;
 
-    /**
-     * A constructor that allows you to set the player's unique ID
-     *
-     * @param name the unique ID to assign to this player.
-     */
     public Player(String name) {
         this.name = name;
+        this.hand = new Hand();
     }
 
     /**
-     * @return the player name
+     * Get the name of the player.
+     * 
+     * @return the name
      */
     public String getName() {
         return name;
     }
 
     /**
-     * Ensure that the playerID is unique
-     *
-     * @param name the player name to set
+     * Get the player's hand.
+     * 
+     * @return the hand
      */
-    public void setName(String name) {
-        this.name = name;
+    public Hand getHand() {
+        return hand;
     }
 
     /**
-     * The method to be overridden when you subclass the Player class with your specific type of Player and filled in
-     * with logic to play your game.
+     * Add a card to the player's hand.
+     * 
+     * @param card the card to add
      */
-    public abstract void play();
+    public void addCardToHand(Card card) {
+        hand.addCard(card);
+    }
 
+    /**
+     * Calculate the total value of the player's hand.
+     *     * @return the total value of the hand
+     */
+    public int calculateHandValue() {
+        return hand.calculateValue();
+    }
+
+    /**
+     * Check if the player's hand has gone bust (over 21).
+     * 
+     * @return true if the hand is bust, false otherwise
+     */
+    public boolean isHandBust() {
+        return hand.isBust();
+    }
+
+    /**
+     * Return a string representation of the player.
+     * 
+     * @return the string representation
+     */
+    @Override
+    public String toString() {
+        return name;
+    }
 }

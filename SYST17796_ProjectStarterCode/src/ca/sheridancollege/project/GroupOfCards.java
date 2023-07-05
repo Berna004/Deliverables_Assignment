@@ -7,49 +7,60 @@ package ca.sheridancollege.project;
 
 import java.util.ArrayList;
 import java.util.Collections;
-
+import java.util.List;
 /**
  * A concrete class that represents any grouping of cards for a Game. HINT, you might want to subclass this more than
  * once. The group of cards has a maximum size attribute which is flexible for reuse.
- *
+ *A class that represents a deck of cards in a Blackjack game.
+ * The deck is a group of cards stored in an ArrayList.
+ * Provides methods to shuffle the deck and deal cards from the deck.
  * @author dancye
  * @author Paul Bonenfant Jan 2020
+ * @author Bernardo Coelho July 2023
  */
+
+
+ 
 public class GroupOfCards {
 
-    //The group of cards, stored in an ArrayList
-    private ArrayList<Card> cards;
-    private int size;//the size of the grouping
+    private List<Card> cards;
 
-    public GroupOfCards(int size) {
-        this.size = size;
+    public GroupOfCards() {
+        cards = new ArrayList<>();
+        initializeDeck();
     }
 
     /**
-     * A method that will get the group of cards as an ArrayList
-     *
-     * @return the group of cards.
+     * Initialize the deck of cards.
+     * Creates all possible cards in a deck (52 cards).
      */
-    public ArrayList<Card> getCards() {
-        return cards;
+    private void initializeDeck() {
+        for (Suit suit : Suit.values()) {
+            for (Rank rank : Rank.values()) {
+                Card card = new Card(suit, rank);
+                cards.add(card);
+            }
+        }
     }
 
+    /**
+     * Shuffle the deck of cards.
+     */
     public void shuffle() {
         Collections.shuffle(cards);
     }
 
     /**
-     * @return the size of the group of cards
+     * Deal a card from the deck.
+     * Removes and returns the top card from the deck.
+     * If the deck is empty, returns null.
+     * 
+     * @return the dealt card
      */
-    public int getSize() {
-        return size;
+    public Card dealCard() {
+        if (cards.isEmpty()) {
+            return null;
+        }
+        return cards.remove(0);
     }
-
-    /**
-     * @param size the max size for the group of cards
-     */
-    public void setSize(int size) {
-        this.size = size;
-    }
-
-}//end class
+}
